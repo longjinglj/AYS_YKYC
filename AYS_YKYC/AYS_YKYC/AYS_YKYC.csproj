@@ -66,8 +66,8 @@
     <Reference Include="WeifenLuo.WinFormsUI.Docking">
       <HintPath>.\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
     </Reference>
-    <Reference Include="ZedGraph">
-      <HintPath>..\ZedGraph_Control_Test\ZedGraph_Control_Test\ZedGraph.dll</HintPath>
+    <Reference Include="ZedGraph, Version=5.1.7.430, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +173,7 @@
     <EmbeddedResource Include="TelecmdProduce.resx">
       <DependentUpon>TelecmdProduce.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -273,6 +274,7 @@
     <None Include="Resources\red1.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="License-LGPL.txt" />
     <Content Include="planet.ico" />
     <Content Include="配置文件\APID详细配置.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

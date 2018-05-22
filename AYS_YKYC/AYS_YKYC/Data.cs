@@ -25,7 +25,7 @@ namespace AYS_YKYC
         public struct APID_Struct
         {
             public APIDForm apidForm;
-            public string apidName; 
+            public string apidName;
         }
 
         public static List<APID_Struct> ApidList = new List<APID_Struct>();
@@ -55,7 +55,7 @@ namespace AYS_YKYC
         public static bool MiYueStatus = true;
         //创建算法参数变量，默认为初始算法
         public static bool SuanFaStatus = true;
-                
+
 
         //创建小回路比对应答事件
         public static ManualResetEvent WaitXHL_Return2ZK = new ManualResetEvent(false);
@@ -137,7 +137,7 @@ namespace AYS_YKYC
         public static byte Data_Flag_Replay = (byte)'A';//回放
 
         //--------------------------信息标识-----------------------------------
-        public static byte[] InfoFlag_Login = new byte[4] { (byte)'L', (byte)'O', (byte)'G',(byte)'N' };//签到信息
+        public static byte[] InfoFlag_Login = new byte[4] { (byte)'L', (byte)'O', (byte)'G', (byte)'N' };//签到信息
         public static byte[] InfoFlag_Time = new byte[4] { (byte)'U', (byte)'C', (byte)'L', (byte)'K' };//校时信息
         public static byte[] InfoFlag_Set = new byte[4] { (byte)'S', (byte)'E', (byte)'T', (byte)'P' };//地面设备设置命令
         public static byte[] InfoFlag_Stat = new byte[4] { (byte)'D', (byte)'A', (byte)'T', (byte)'S' };//地面设备状态信息
@@ -153,19 +153,19 @@ namespace AYS_YKYC
         public static byte Help_Flag = (byte)':';
 
         //----------------------信息来源/目的地址名称--------------------------
-        public static byte[] ZK_S1 = new byte[3] { (byte)'M', (byte)'S', (byte)'1'};//总控服务器（主）
+        public static byte[] ZK_S1 = new byte[3] { (byte)'M', (byte)'S', (byte)'1' };//总控服务器（主）
         public static byte[] ZK_S2 = new byte[3] { (byte)'M', (byte)'S', (byte)'2' };//总控服务器（备）
         public static byte[] TMF = new byte[3] { (byte)'T', (byte)'M', (byte)'F' };//遥测前端设备
         public static byte[] TCF = new byte[3] { (byte)'T', (byte)'C', (byte)'F' };//遥控前端设备
         public static byte[] IPC = new byte[3] { (byte)'I', (byte)'P', (byte)'C' };//外系统接口计算机
-        
+
 
 
         public static string YKconfigPath = Program.GetStartupPath() + @"配置文件\遥控指令配置.xml";
 
         public static string YCconfigPath = Program.GetStartupPath() + @"配置文件\遥测APID配置.xml";
 
-        public static string APIDconfigPath = Program.GetStartupPath()+ @"配置文件\APID详细配置.xml";
+        public static string APIDconfigPath = Program.GetStartupPath() + @"配置文件\APID详细配置.xml";
         public static void SaveConfig(string Path, string key, string value)
         {
             XDocument xDoc = XDocument.Load(Path);
@@ -226,7 +226,7 @@ namespace AYS_YKYC
 
         }
 
-        public static List<string> GetConfigNormal(string Path,string type)
+        public static List<string> GetConfigNormal(string Path, string type)
         {
             XDocument xDoc = XDocument.Load(Path);
             XmlReader reader = xDoc.CreateReader();
@@ -242,23 +242,527 @@ namespace AYS_YKYC
             return list;
         }
 
-        public static string GetConfigStr(string Path, string type,string key, string name)
+        public static string GetConfigStr(string Path, string type, string key, string name)
         {
             XDocument xDoc = XDocument.Load(Path);
             XmlReader reader = xDoc.CreateReader();
             string value = "Error";
-            var query = from p in xDoc.Root.Elements(type)
-                        where p.Attribute("key").Value == key
-                        select p.Attribute(name).Value;
-
-            foreach (string s in query)
+            try
             {
-                value = s;
+                var query = from p in xDoc.Root.Elements(type)
+                            where p.Attribute("key").Value == key
+                            select p.Attribute(name).Value;
+                foreach (string s in query)
+                {
+                    value = s;
+                }
             }
-
+            catch
+            {
+                value = "null;";
+            }
             return value;
         }
 
+
+
+        #region 解析值
+        public static string GetAnalystr(string type, string strvalue)
+        {
+            string result = "error";
+            string[] temp = new string[2];
+            temp = strvalue.Split('x');
+            strvalue = temp[1];
+            switch (type)
+            {
+                case "十六进制显示":
+                    {
+                        result = strvalue;
+                    }
+                    break;
+                case "十进制显示":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        result = Convert.ToString(value, 10);
+                    }
+                    break;
+                case "温度1方式显示"://12位
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((float)valuetemp / 4096) * 3.3;
+                        result = (value * 196.078 - 273).ToString("f2");
+                    }
+                    break;
+                case "温度2":
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((float)valuetemp / 256) * 5;
+                        result = (value * 196.078 - 273).ToString("f2");
+                    }
+                    break;
+                case "枚举1方式显示":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0x11U)
+                            result = "上电";
+                        else
+                           if (value == 0x22U)
+                            result = "晶振失效复位";
+                        else
+                           if (value == 0x44U)
+                            result = "看门狗复位";
+                        else
+                           if (value == 0x88U)
+                            result = "仿真器复位";
+                        else
+                           if (value == 0x99U)
+                            result = "CPU复位";
+                        else
+                           if (value == 0xAAU)
+                            result = "软件复位";
+                        else
+                           if (value == 0x55U)
+                            result = "外部复位按钮复位";
+                        else
+                           if (value == 0x00U)
+                            result = "位置复位";
+                    }
+                    break;
+                case "枚举2":
+                case "枚举2方式显示":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0x00)//000
+                            result = "待机";
+                        else
+                           if (value == 0x01)//001
+                            result = "擦除";
+                        else
+                           if (value == 0x02)///010
+                            result = "记录";
+                        else
+                           if (value == 0x03)//011
+                            result = "回放";
+                        else
+                           if (value == 0x04)//100
+                            result = "测试";
+                        else
+                           if (value == 0x05)//101
+                            result = "单载波";
+                        else
+                           if (value == 0x06)//110
+                            result = "非法";
+                        else
+                           if (value == 0x07)//111
+                            result = "非法";
+                    }
+                    break;
+                case "枚举3":
+                case "枚举3方式显示":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0x00)//00
+                            result = "待机";
+                        else
+                           if (value == 0x01)//01
+                            result = "记录";
+                        else
+                           if (value == 0x02)///10
+                            result = "回放";
+                        else
+                           if (value == 0x03)//11
+                            result = "擦除";
+
+                    }
+                    break;
+                case "枚举4方式显示":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0x00)//0
+                            result = "正常定位";
+                        else
+                           if (value == 0x01)//1
+                            result = "GPS时间无效";
+                        else
+                           if (value == 0x02)///
+                            result = "有故障星";
+                        else
+                           if (value == 0x03)//
+                            result = "PDOP值太大";
+                        else
+                           if (value == 0x04)//
+                            result = "冷捕-无任何信息";
+                        else
+                           if (value == 0x05)//
+                            result = "热捕-已经有星历、时间、位置等信息";
+                        else
+                           if (value == 0x08)//
+                            result = "没有可用卫星";
+                        else
+                           if (value == 0x09)//
+                            result = "只有1课可用卫星";
+                        else
+                           if (value == 0x0A)//
+                            result = "只有2颗可用卫星";
+                        else
+                           if (value == 0x0B)//
+                            result = "只有3颗可用卫星";
+                        else
+                           if (value == 0x0D)//
+                            result = "高度超差";
+                        else
+                           if (value == 0x0E)//
+                            result = "频度超差";
+                        else
+                           if (value == 0x0F)//
+                            result = "速度超差";
+
+                    }
+                    break;
+
+                case "FLOAT"://32wei
+                    {
+                        uint num = uint.Parse(strvalue, System.Globalization.NumberStyles.AllowHexSpecifier);
+                        byte[] floatvals = BitConverter.GetBytes(num);
+                        float f = BitConverter.ToSingle(floatvals, 0);
+                        result = f.ToString("f2");
+                    }
+                    break;
+                case "浮点显示"://64位
+                    {
+
+                        UInt64 num = UInt64.Parse(strvalue, System.Globalization.NumberStyles.AllowHexSpecifier);
+                        byte[] floatvals = BitConverter.GetBytes(num);
+                        double f = BitConverter.ToDouble(floatvals, 0);
+                        result = f.ToString("f2");
+                    }
+                    break;
+                case "电压1方式显示":
+                case "8位3.3V转换*1":
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((double)valuetemp / 256) * 3.3;
+                        result = (value).ToString("f2");
+                    }
+                    break;
+                case "电流1方式显示":
+                case "12位3.3V转换*1":
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((double)valuetemp / 4096) * 3.3;
+                        result = (value).ToString("f2");
+                    }
+                    break;
+
+                case "电压2方式显示":
+                case "8位5V转换*1":
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((double)valuetemp / 256) * 5;
+                        result = (value).ToString("f2");
+                    }
+                    break;
+                case "12位5V转换*1":
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((double)valuetemp / 4096) * 5;
+                        result = (value).ToString("f2");
+                    }
+                    break;
+                case "8位3.3V转换*2":
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((double)valuetemp / 256) * 3.3 * 2;
+                        result = (value).ToString("f2");
+                    }
+                    break;
+                case "12位3.3V转换*2":
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((double)valuetemp / 4096) * 3.3 * 2;
+                        result = (value).ToString("f2");
+                    }
+                    break;
+                case "8位5V转换*2":
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((double)valuetemp / 256) * 5 * 2;
+                        result = (value).ToString("f2");
+                    }
+                    break;
+                case "12位5V转换*2":
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((double)valuetemp / 4096) * 5 * 2;
+                        result = (value).ToString("f2");
+                    }
+                    break;
+
+                case "8位3.3V转换*3":
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((double)valuetemp / 256) * 3.3 * 3;
+                        result = (value).ToString("f2");
+                    }
+                    break;
+                case "12位3.3V转换*3":
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((double)valuetemp / 4096) * 3.3 * 3;
+                        result = (value).ToString("f2");
+                    }
+                    break;
+                case "8位5V转换*3":
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((double)valuetemp / 256) * 5 * 3;
+                        result = (value).ToString("f2");
+                    }
+                    break;
+                case "12位5V转换*3":
+                    {
+                        long valuetemp = Convert.ToInt64(strvalue, 16);
+                        double value = ((double)valuetemp / 4096) * 5 * 3;
+                        result = (value).ToString("f2");
+                    }
+                    break;
+                case "单位0.1m":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        result = ((float)value * 0.1).ToString("f1");
+                    }
+                    break;
+                case "布尔显示":
+                case "布尔方式显示":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0x00)
+                            result = "否";
+                        else
+                            result = "是";
+                    }
+                    break;
+                case "布尔2显示":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0x00)
+                            result = "是";
+                        else
+                            result = "否";
+                    }
+                    break;
+                case "布尔3显示":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0x55)
+                            result = "飞轮A";
+                        else
+                            if (value == 0xAA)
+                            result = "飞轮B";
+                    }
+                    break;
+                case "布尔0：飞轮A，1：飞轮B":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0x01)
+                            result = "飞轮A";
+                        else
+                            if (value == 0x00)
+                            result = "飞轮B";
+                    }
+                    break;
+                case "北京时间2017年1月1日12时0分0秒为起点的累积秒值":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        DateTime starttime = new DateTime(2017, 1, 1, 0, 0, 0);
+                        DateTime time = Function.BytesToDateTime(value, starttime);
+                        result = time.Year + "-" + time.Month + "-" + time.Day + "-" + time.Hour + "-" + time.Minute + "-" + time.Second;
+                    }
+                    break;
+                case "result = (float)(data&gt;&gt;3)/16":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        result = ((value >> 3) / 16).ToString("f2");
+                    }
+                    break;
+                case "result = (float)(data&amp;0xfff8)/2000":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        result = ((value & 0xfff8) / 2000).ToString("f2");
+                    }
+                    break;
+                case "result = (float)(data&amp;0x1fff) / 2.5":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        result = ((value & 0x1ffff) / 2.5).ToString("f2");
+                    }
+                    break;
+                case "result = (float)(data&amp;0x1fff) / 10":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        result = ((value & 0x1ffff) / 10).ToString("f2");
+                    }
+                    break;
+                case "DATA*0.001":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        result = (value * 0.001).ToString("f3");
+                    }
+                    break;
+                case "DATA*0.04":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        result = (value * 0.04).ToString("f2");
+                    }
+                    break;
+                case "AA锁定，55失锁":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0xAA)
+                            result = "锁定";
+                        else
+                            if (value == 0x55)
+                            result = "失锁";
+                    }
+                    break;
+                case "2018-5-1 0:0:0开始的秒计数":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        DateTime starttime = new DateTime(2018, 5, 1, 0, 0, 0);
+                        DateTime time = Function.BytesToDateTime(value, starttime);
+                        result = time.Year + "-" + time.Month + "-" + time.Day + "-" + time.Hour + "-" + time.Minute + "-" + time.Second;
+                    }
+                    break;
+                case "1为CAN，0为I2C":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0x01)
+                            result = "CAN";
+                        else
+                            result = "I2C";
+                    }
+                    break;
+                case "14位有符号数*0.05°/s":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        double tempvalue = ((value & 0x3FFF) < 0x2000) ?
+                        ((value & 0x3FFF) * 0.05) :
+                        (((~(value & 0x3FFF) & 0x3FFF) + 1) * (-0.05));
+                        result = tempvalue.ToString("f2");
+                    }
+                    break;
+                case "14位有符号数*0.00333g":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        double tempvalue = ((value & 0x3FFF) < 0x2000) ?
+                        ((value & 0x3FFF) * 0.00333) :
+                        (((~(value & 0x3FFF) & 0x3FFF) + 1) * (-0.00333));
+                        result = tempvalue.ToString("f5");
+                    }
+                    break;
+                case "14位有符号数*0.002418V":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        double tempvalue = ((value & 0x3FFF) < 0x2000) ?
+                        ((value & 0x3FFF) * 0.002418) :
+                        (((~(value & 0x3FFF) & 0x3FFF) + 1) * (-0.002418));
+                        result = tempvalue.ToString("f5");
+                    }
+                    break;
+                case "14位有符号数*0.0005gauss":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        double tempvalue = ((value & 0x3FFF) < 0x2000) ?
+                        ((value & 0x3FFF) * 0.0005) :
+                        (((~(value & 0x3FFF) & 0x3FFF) + 1) * (-0.0005));
+                        result = tempvalue.ToString("f4");
+                    }
+                    break;
+                case "12位有符号数*0.14℃+25℃":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        double tempvalue = ((value & 0x0FFF) < 0x0800) ?
+                        ((value & 0x0FFF) * 0.14 + 25) :
+                        (((~(value & 0x0FFF) & 0x0FFF) + 1) * (-0.14) + 25);
+                        result = tempvalue.ToString("f4");
+                    }
+                    break;
+                case "0x01，0x02":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0x01)
+                            result = "0x01";
+                        else
+                            result = "0x02";
+                    }
+                    break;
+                case "00为空，11为满，01或10为非空非满":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0x00)
+                            result = "空";
+                        else
+                            if (value == 0x11)
+                            result = "满";
+                        else
+                            if (value == 0x01 || value == 0x10)
+                            result = "非空非满";
+                    }
+                    break;
+                case "0：频点1,1：频点2，2：频点3,3：频点4":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0x00)
+                            result = "频点1";
+                        else
+                            if (value == 0x01)
+                            result = "频点2";
+                        else
+                            if (value == 0x10)
+                            result = "频点3";
+                        else
+                            if (value == 0x11)
+                            result = "频点4";
+                    }
+                    break;
+                case "0:1.2Kbps，1:2.4Kbps，2:4.8Kbps，3:9.6Kbps":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+                        if (value == 0x00)
+                            result = "1.2Kbps";
+                        else
+                            if (value == 0x01)
+                            result = "2.4Kbps";
+                        else
+                            if (value == 0x10)
+                            result = "4.8Kbps";
+                        else
+                            if (value == 0x11)
+                            result = "9.6Kbps";
+                    }
+                    break;
+                case "0.1m":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+
+                        result = ((float)value * 0.1).ToString("f1");
+                    }
+                    break;
+                case "0.01m/s":
+                    {
+                        long value = Convert.ToInt64(strvalue, 16);
+
+                        double tempvalue = ((value) < 0x8000) ?
+                                               ((value & 0x7FFF) * 0.01) :
+                                               (((~(value & 0x7FFF) & 0x7FFF) + 1) * (-0.01));
+                        result = tempvalue.ToString("f2");
+                    }
+                    break;
+            }
+            return result;
+
+        }
+        #endregion
         //public static string GetConfigStr(string Path, string key, string name)
         //{
         //    XDocument xDoc = XDocument.Load(Path);
@@ -276,7 +780,7 @@ namespace AYS_YKYC
         //    return value;
         //}
 
-        public static void SaveConfigStr(string Path, string type,string key, string name, string value)
+        public static void SaveConfigStr(string Path, string type, string key, string name, string value)
         {
             XDocument xDoc = XDocument.Load(Path);
             XmlReader reader = xDoc.CreateReader();

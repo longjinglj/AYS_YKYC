@@ -446,7 +446,7 @@ namespace AYS_YKYC
 
                             Trace.WriteLine("DealEpdu---APID-------" + APID);
 
-                            foreach (DataRow dr in Data.dtAPID.Rows)
+                            foreach (DataRow dr in Data.dtAPID.Rows)///
                             {
                                 if ((string)dr["APID"] == APID)
                                 {
@@ -463,6 +463,8 @@ namespace AYS_YKYC
                             }
                             #endregion 处理EPDU
                         }
+                        else
+                            Thread.Sleep(1);
                     }
                     else
                     {
@@ -470,6 +472,7 @@ namespace AYS_YKYC
                         {
                             Data.EpduBuf_List.Clear();
                         }
+                        
                     }
                 }
                 else

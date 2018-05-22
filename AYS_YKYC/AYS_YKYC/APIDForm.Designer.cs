@@ -66,22 +66,24 @@
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.Size = new System.Drawing.Size(376, 559);
             this.dataGridView1.TabIndex = 20;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
             // 
             // Column1
             // 
             this.Column1.DataPropertyName = "序号";
             this.Column1.HeaderText = "序号";
             this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
             this.Column1.Width = 40;
             // 
             // dataGridViewTextBoxColumn7
             // 
-            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn7.DataPropertyName = "名称";
             this.dataGridViewTextBoxColumn7.HeaderText = "名称";
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn7.Width = 133;
             // 
             // dataGridViewTextBoxColumn8
             // 
@@ -91,7 +93,6 @@
             this.dataGridViewTextBoxColumn8.HeaderText = "占位";
             this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            this.dataGridViewTextBoxColumn8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dataGridViewTextBoxColumn8.Width = 40;
             // 
             // dataGridViewTextBoxColumn9
@@ -102,15 +103,15 @@
             this.dataGridViewTextBoxColumn9.HeaderText = "值";
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dataGridViewTextBoxColumn9.Width = 80;
             // 
             // 解析值
             // 
+            this.解析值.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.解析值.DataPropertyName = "解析值";
             this.解析值.HeaderText = "解析值";
             this.解析值.Name = "解析值";
-            this.解析值.Width = 80;
+            this.解析值.ReadOnly = true;
             // 
             // APIDForm
             // 

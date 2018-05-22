@@ -142,10 +142,8 @@
   <软件 key="遥控指令头错误计数" len="8" fmul="十进制显示"/>
   <软件 key="遥控指令非法域计数" len="8" fmul="十进制显示"/>
   <软件 key="UV通信机下传计数" len="8" fmul="十进制显示"/>
-  <软件 key="任务栈剩余最低字节" len="6" fmul="十进制显示"/>
-  <软件 key="任务栈剩余最低任务标识" len="2" fmul="十进制显示"/>
-  <软件 key="保留1" len="1"/>
-  <软件 key="测控通道检查指令计数" len="3" fmul="十进制显示"/>
+  <软件 key="任务栈剩余最低字节" len="8" fmul="十进制显示"/>
+  <软件 key="测控通道检查指令计数" len="4" fmul="十进制显示"/>
   <软件 key="CAN总线2错误计数（主）" len="4" fmul="十进制显示"/>
   <软件 key="CAN总线1错误计数" len="4" fmul="十进制显示"/>
   <软件 key="CAN总线2重启计数（主）" len="4" fmul="十进制显示"/>
@@ -222,34 +220,22 @@
   <GNC key="MZ-current-YC" len="12" fmul="电流1方式显示"/>
   <GNC key="RW1_9V_YC" len="8" fmul="电压1方式显示"/>
   <GNC key="RW2_9V_YC" len="8" fmul="电压1方式显示"/>
-  <GNC key="RW_OP_9V_YC" len="8" fmul="电压1方式显示"/>
   <GNC key="飞轮选择" len="1" fmul="布尔0：飞轮A，1：飞轮B"/>
   <GNC key="保留11" len="1"/>
   <GNC key="保留12" len="1"/>
   <GNC key="飞轮1速度遥测" len="13" fmul="十进制显示"/>
   <GNC key="保留13" len="3"/>
   <GNC key="飞轮2速度遥测" len="13" fmul="十进制显示"/>
-  <GNC key="估计姿态角度滚动" len="16"/>
-  <GNC key="估计姿态角度俯仰" len="16"/>
-  <GNC key="估计姿态角度偏航" len="16"/>
-  <GNC key="磁强计差分角速度X" len="16"/>
-  <GNC key="磁强计差分角速度Y" len="16"/>
-  <GNC key="磁强计差分角速度Z" len="16"/>
-  <GNC key="卫星递推经度" len="32" fmul="浮点显示"/>
-  <GNC key="卫星递推纬度" len="32" fmul="浮点显示"/>
-  <GNC key="卫星递推地心距高度" len="32" fmul="浮点显示"/>
-  <GNC key="B dot 门限值" len="32"/>
-  <GNC key="B dot 门限计数" len="8" fmul="十进制显示"/>
-  <GNC key="地磁场计算值X" len="32"/>
-  <GNC key="地磁场计算值Y" len="32"/>
-  <GNC key="地磁场计算值Z" len="32"/>
+  <GNC key="当前位置X" len="64" fmul="浮点显示"/>
+  <GNC key="当前位置Y" len="64" fmul="浮点显示"/>
+  <GNC key="当前位置Z" len="64" fmul="浮点显示"/>
+  <GNC key="当前速度X" len="64" fmul="浮点显示"/>
+  <GNC key="当前速度Y" len="64" fmul="浮点显示"/>
+  <GNC key="当前速度Z" len="64" fmul="浮点显示"/>
   <GNC key="工作模式" len="8"/>
-  <GNC key="控制模式" len="8"/>
-  <GNC key="测量模式" len="8"/>
-  <GNC key="保留14" len="8"/>
-  <GNC key="保留15" len="8"/>
-  <GNC key="保留16" len="8"/>
-  <GNC key="保留17" len="8"/>
+  <GNC key="估计姿态角度滚动" len="64"/>
+  <GNC key="估计姿态角度俯仰" len="64"/>
+  <GNC key="估计姿态角度偏航" len="64"/>
   <热控 key="+X面太阳电池片温度" len="8" fmul="温度2"/>
   <热控 key="-Y面太阳电池片温度" len="8" fmul="温度2"/>
   <热控 key="-Z面太阳电池片温度" len="8" fmul="温度2"/>

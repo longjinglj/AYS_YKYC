@@ -115,4 +115,16 @@ D:\CSharpProjects\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.QueryMyDB.resour
 D:\CSharpProjects\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.SelfTest.resources
 D:\CSharpProjects\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.SettingForm.resources
 D:\CSharpProjects\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.TelecmdProduce.resources
-D:\CSharpProjects\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.csprojResolveAssemblyReference.cache
+F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.csproj.ResolveComReference.cache
+F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.APIDForm.resources
+F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.ChartForm.resources
+F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.Form1.resources
+F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.MainForm.resources
+F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.Properties.Resources.resources
+F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.QueryForm.resources
+F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.QueryMyDB.resources
+F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.SelfTest.resources
+F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.SettingForm.resources
+F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.TelecmdProduce.resources
+F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.csproj.GenerateResource.cache
+F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.csproj.CoreCompileInputs.cache

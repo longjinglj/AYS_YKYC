@@ -96,6 +96,7 @@ namespace WindowsApplication2
 			z1.GraphPane.AddCurve( "Sine Wave", x, y, Color.Red, SymbolType.Square );
 			z1.AxisChange();
 			z1.Invalidate();
+            
 		}
 	}
 }

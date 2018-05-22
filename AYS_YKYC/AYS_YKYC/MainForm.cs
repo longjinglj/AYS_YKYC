@@ -346,7 +346,7 @@ namespace AYS_YKYC
             {
                 mySettingForm = new SettingForm(this);
             }
-            mySettingForm.ShowDialog();
+            mySettingForm.Show();
         }
 
 
@@ -400,7 +400,7 @@ namespace AYS_YKYC
             {
                 myQueryForm = new QueryForm(this);
             }
-            myQueryForm.ShowDialog();
+            myQueryForm.Show();
         }
 
 
@@ -541,7 +541,7 @@ namespace AYS_YKYC
                         {
                             Data.dtYC.Rows[0]["数量"] = (int)Data.dtYC.Rows[0]["数量"] + 1; //收到总数
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             MyLog.Error(ex.Message);
                         }
@@ -560,7 +560,7 @@ namespace AYS_YKYC
                             {
                                 tempstr2 += YCBuf[i].ToString("x2");
                             }
-                           // Trace.WriteLine(tempstr2);
+                            // Trace.WriteLine(tempstr2);
 
                             //ushort CRC = 0xffff;
                             //ushort genpoly = 0x1021;
@@ -829,7 +829,7 @@ namespace AYS_YKYC
             {
                 mySqlForm = new QueryMyDB();
             }
-            mySqlForm.ShowDialog();
+            mySqlForm.Show();
         }
 
         private void treeView1_DoubleClick(object sender, EventArgs e)
@@ -897,15 +897,17 @@ namespace AYS_YKYC
                 if ((bool)checkCell.EditedFormattedValue == true)     // 
                 {
                     string apidName = (string)Data.dtAPID.Rows[e.RowIndex]["名称"];
+                    if (apidName != "填充帧")
+                    {
+                        APIDForm form = new APIDForm(apidName, this);
+                        form.Show(this.dockPanel1);
+                        form.DockTo(this.dockPanel1, DockStyle.None);
 
-                    APIDForm form = new APIDForm(apidName, this);
-                    form.Show(this.dockPanel1);
-                    form.DockTo(this.dockPanel1, DockStyle.Fill);
-
-                    Data.APID_Struct aPID_Struct = new Data.APID_Struct();
-                    aPID_Struct.apidForm = form;
-                    aPID_Struct.apidName = apidName;
-                    Data.ApidList.Add(aPID_Struct);
+                        Data.APID_Struct aPID_Struct = new Data.APID_Struct();
+                        aPID_Struct.apidForm = form;
+                        aPID_Struct.apidName = apidName;
+                        Data.ApidList.Add(aPID_Struct);
+                    }
                 }
                 else
                 {
@@ -916,7 +918,7 @@ namespace AYS_YKYC
                         if (apidName == Data.ApidList[i].apidName)
                         {
                             Data.ApidList[i].apidForm.Close();
-                           // Data.ApidList.Remove(Data.ApidList[i]);
+                            // Data.ApidList.Remove(Data.ApidList[i]);
                             break;
                         }
                     }
@@ -982,15 +984,16 @@ namespace AYS_YKYC
 
         private void 数据分析ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (myChartForm != null)
-            {
-                myChartForm.Activate();
-            }
-            else
-            {
-                myChartForm = new ChartForm();
-            }
-            myChartForm.ShowDialog();
+            //if (myChartForm != null)
+            //{
+            //    myChartForm.Activate();
+            //}
+            //else
+            //{
+            //    myChartForm = new ChartForm();
+            //}
+            myChartForm = new ChartForm();
+            myChartForm.Show();
         }
 
         private void btn_LogClear_Click(object sender, EventArgs e)
@@ -1006,36 +1009,40 @@ namespace AYS_YKYC
                 checkCell.Value = true;
 
                 string apidName = (string)Data.dtAPID.Rows[i]["名称"];
-
-                bool AlreadyShowTag = false;
-                for (int j = 0; j < Data.ApidList.Count; j++)
+                if (apidName != "填充帧")
                 {
-                    if (apidName == Data.ApidList[j].apidName)
+                    bool AlreadyShowTag = false;
+                    for (int j = 0; j < Data.ApidList.Count; j++)
                     {
-                        AlreadyShowTag = true;
-                        break;
+                        if (apidName == Data.ApidList[j].apidName)
+                        {
+                            AlreadyShowTag = true;
+                            break;
+                        }
+                        else
+                        {
+                            AlreadyShowTag = false;
+                        }
+                    }
+
+                    if (!AlreadyShowTag)
+                    {
+                        APIDForm form = new APIDForm(apidName, this);
+                        form.Show(this.dockPanel1);
+                        form.DockTo(this.dockPanel1, DockStyle.None);
+                        
+                        Data.APID_Struct aPID_Struct = new Data.APID_Struct();
+                        aPID_Struct.apidForm = form;
+                        aPID_Struct.apidName = apidName;
+                        Data.ApidList.Add(aPID_Struct);
                     }
                     else
                     {
-                        AlreadyShowTag = false;
+                        Trace.WriteLine("Already show in the dock!");
                     }
                 }
-
-                if (!AlreadyShowTag)
-                {
-                    APIDForm form = new APIDForm(apidName, this);
-                    form.Show(this.dockPanel1);
-                    form.DockTo(this.dockPanel1, DockStyle.Fill);
-
-                    Data.APID_Struct aPID_Struct = new Data.APID_Struct();
-                    aPID_Struct.apidForm = form;
-                    aPID_Struct.apidName = apidName;
-                    Data.ApidList.Add(aPID_Struct);
-                }
                 else
-                {
-                    Trace.WriteLine("Already show in the dock!");
-                }
+                    checkCell.Value = false;
 
             }
 
@@ -1043,6 +1050,24 @@ namespace AYS_YKYC
         }
 
         private void dataGridView2_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel5_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            foreach (DataRow dr in Data.dtAPID.Rows)///
+            {
+                dr["数量"] = 0;
+            }
+        }
+
+        private void 运行日志ToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
 
         }

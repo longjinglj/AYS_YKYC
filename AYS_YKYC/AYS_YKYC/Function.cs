@@ -544,6 +544,17 @@ namespace AYS_YKYC
 
             return time_span;
         }
+
+
+        //---------根据字节获取时间---------
+        public static DateTime BytesToDateTime(long Secount, DateTime starttime)
+        {
+            DateTime dt = DateTime.Now;
+            dt = starttime.AddSeconds(Secount);
+            return dt;
+
+        }
+
         //----------设置系统时间----------
         public static void Set_Time(byte[] data)
         {
