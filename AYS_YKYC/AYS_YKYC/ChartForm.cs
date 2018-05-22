@@ -78,13 +78,13 @@ namespace AYS_YKYC
             dateTimePicker1.Text = tempbefore;
 
          
-            z1.GraphPane.Title = "图表";
-            z1.GraphPane.XAxis.Title = "时间";
-            z1.GraphPane.YAxis.Title = "值";
-            z1.GraphPane.XAxis.MinAuto = true;
-            z1.GraphPane.XAxis.MaxAuto = true;
+            z1.GraphPane.Title.Text = "图表";
+            z1.GraphPane.XAxis.Title.Text = "时间";
+            z1.GraphPane.YAxis.Title.Text = "值";
+            z1.GraphPane.XAxis.CrossAuto = true;
+            //z1.GraphPane.XAxis.MaxAuto = true;
             z1.GraphPane.XAxis.Type = ZedGraph.AxisType.Date;
-            //z1.PointValueFormat = z1.GraphPane.XAxis +"G";
+          
 
             button1.Text = "关闭实时更新";
             recurve_thread = new Thread(refreshcurve);
@@ -191,10 +191,29 @@ namespace AYS_YKYC
                     for (int m = 0; m < z1.GraphPane.CurveList.Count; m++)
                     {
                         CurveItem mycurve = z1.GraphPane.CurveList[m];
-                        if (mycurve.Label == showSelectColum)
+                        if (mycurve.Label.Text == showSelectColum)
                         {
                            
                             PointPairList list = mycurve.Points as PointPairList;
+
+                            #region   删除曲线中时间以前的点
+                            if (x.Length == 0)
+                            {
+                                list.Clear();
+                            }
+                            else
+                            {
+                                double fisttime = x[0];
+                                for (int j = 0; j < list.Count; j++)
+                                {
+                                    if (list[j].X < fisttime)
+                                    {
+                                        list.Clear();
+                                        break;
+                                    }
+                                }
+                            }
+                            #endregion
 
                             DateTime ori = new DateTime(1000, 1, 1, 0, 0, 0);
                             double lasttime = (double)new XDate(ori);
@@ -264,7 +283,7 @@ namespace AYS_YKYC
                 for (int m = 0; m < curvecount; m++)
                 {
                     CurveItem mycurve = z1.GraphPane.CurveList[m];
-                    string[] gettablename = mycurve.Label.Split(':');
+                    string[] gettablename = mycurve.Label.Text.Split(':');
 
                     String TableName = "table_" + gettablename[0] + "_解析值";//要查询的数据库的名称
 
@@ -342,7 +361,7 @@ namespace AYS_YKYC
                     }
 
 
-                    string showSelectColum = mycurve.Label;
+                    string showSelectColum = mycurve.Label.Text;
 
                     //Color originalcolor = mycurve.Color;
                     //z1.GraphPane.CurveList.RemoveAt(0);
@@ -353,6 +372,26 @@ namespace AYS_YKYC
                     PointPairList list = mycurve.Points as PointPairList;
                     DateTime ori = new DateTime(1000, 1, 1, 0, 0, 0);
                     double lasttime= (double)new XDate(ori);
+
+                    #region   删除曲线中时间以前的点
+                    if(x.Length==0)
+                    {
+                        list.Clear();
+                    }
+                    else
+                    {
+                        double fisttime = x[0];
+                        for (int j = 0; j < list.Count; j++)
+                        {
+                            if (list[j].X < fisttime)
+                            {
+                                list.Clear();
+                                break;
+                            }
+                        }
+                    }
+                    #endregion
+
                     if (list.Count>0)
                     {
                          lasttime = list[list.Count - 1].X;
@@ -405,7 +444,7 @@ namespace AYS_YKYC
             for (int m = 0; m < z1.GraphPane.CurveList.Count; m++)
             {
                 CurveItem mycurve = z1.GraphPane.CurveList[m];
-                if (mycurve.Label == comboBox1.Text)
+                if (mycurve.Label.Text == comboBox1.Text)
                 {
                     z1.GraphPane.CurveList.RemoveAt(m);
                     comboBox1.Items.Remove(comboBox1.Text);
@@ -492,7 +531,7 @@ namespace AYS_YKYC
             for (int m = 0; m < curvecount; m++)
             {
                 CurveItem mycurve = z1.GraphPane.CurveList[m];
-                str = mycurve.Label;
+                str = mycurve.Label.Text;
                 streamwriter.WriteLine(str);
             }
             streamwriter.Flush();
@@ -501,8 +540,26 @@ namespace AYS_YKYC
 
         private void button5_Click(object sender, EventArgs e)
         {
+            openFileDialog1.InitialDirectory = Program.GetStartupPath() + @"配置文件\chartform配置文件\";
+            string openpath="";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                //   openFileDialog1.InitialDirectory = Program.GetStartupPath() + @"LogData\";
+                try
+                {
+                     openpath = openFileDialog1.FileName;
+                }
+                catch
+                {
+                    MyLog.Info("配置文件打开失败");
+                    return;   
+                }
+            }
+
+
+
             string str = Application.StartupPath;
-            string openpath = str + @"\配置文件\chartform.txt";
+           
 
             TextReader reader = new StreamReader(openpath);
             string line;
@@ -596,10 +653,30 @@ namespace AYS_YKYC
                 for (int m = 0; m < z1.GraphPane.CurveList.Count; m++)
                 {
                     CurveItem mycurve = z1.GraphPane.CurveList[m];
-                    if (mycurve.Label == showSelectColum)
+                    if (mycurve.Label.Text == showSelectColum)
                     {
 
                         PointPairList list = mycurve.Points as PointPairList;
+                        #region   删除曲线中时间以前的点
+                        if (x.Length == 0)
+                        {
+                            list.Clear();
+                        }
+                        else
+                        {
+                            double fisttime = x[0];
+                            for (int j = 0; j < list.Count; j++)
+                            {
+                                if (list[j].X < fisttime)
+                                {
+                                    list.Clear();
+                                    break;
+                                }
+                            }
+                        }
+                        #endregion
+
+
                         double lasttime = list[list.Count - 1].X;
                         for (int j = 0; j < x.Length; j++)
                         {

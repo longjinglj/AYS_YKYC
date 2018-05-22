@@ -43,11 +43,12 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.z1 = new ZedGraph.ZedGraphControl();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.btn_LogCtr = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.z1 = new ZedGraph.ZedGraphControl();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -217,6 +218,25 @@
             this.splitContainer2.SplitterDistance = 633;
             this.splitContainer2.TabIndex = 0;
             // 
+            // z1
+            // 
+            this.z1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.z1.IsShowPointValues = true;
+            this.z1.Location = new System.Drawing.Point(48, 146);
+            this.z1.Name = "z1";
+            this.z1.ScrollGrace = 0D;
+            this.z1.ScrollMaxX = 0D;
+            this.z1.ScrollMaxY = 0D;
+            this.z1.ScrollMaxY2 = 0D;
+            this.z1.ScrollMinX = 0D;
+            this.z1.ScrollMinY = 0D;
+            this.z1.ScrollMinY2 = 0D;
+            this.z1.Size = new System.Drawing.Size(512, 379);
+            this.z1.TabIndex = 23;
+            this.z1.UseExtendedPrintDialog = true;
+            // 
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(298, 90);
@@ -247,20 +267,9 @@
             this.btn_LogCtr.UseVisualStyleBackColor = true;
             this.btn_LogCtr.Click += new System.EventHandler(this.btn_LogCtr_Click);
             // 
-            // z1
+            // openFileDialog1
             // 
-            this.z1.Location = new System.Drawing.Point(48, 146);
-            this.z1.Name = "z1";
-            this.z1.ScrollGrace = 0D;
-            this.z1.ScrollMaxX = 0D;
-            this.z1.ScrollMaxY = 0D;
-            this.z1.ScrollMaxY2 = 0D;
-            this.z1.ScrollMinX = 0D;
-            this.z1.ScrollMinY = 0D;
-            this.z1.ScrollMinY2 = 0D;
-            this.z1.Size = new System.Drawing.Size(512, 379);
-            this.z1.TabIndex = 23;
-            this.z1.UseExtendedPrintDialog = true;
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // ChartForm
             // 
@@ -308,5 +317,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.BindingSource bindingSource1;
         private ZedGraph.ZedGraphControl z1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
