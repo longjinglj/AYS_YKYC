@@ -15,9 +15,11 @@ namespace AYS_YKYC
 {
     public partial class QueryMyDB : Form
     {
-        public QueryMyDB()
+        public MainForm mform;
+        public QueryMyDB(AYS_YKYC.MainForm parent)
         {
             InitializeComponent();
+            mform = parent;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -78,7 +80,8 @@ namespace AYS_YKYC
             }
             catch(Exception ex)
             {
-                MessageBox.Show("输入的条件不符合格式，请重新输入！");
+                //MessageBox.Show("输入的条件不符合格式，请重新输入！");
+                MyLog.Error("输入的条件不符合格式，请重新输入！");
                 MyLog.Error(ex.Message);
             }
           
@@ -139,7 +142,8 @@ namespace AYS_YKYC
             Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             if (xlApp == null)
             {
-                MessageBox.Show("无法创建Excel对象，您的电脑可能未安装Excel");
+                //MessageBox.Show("无法创建Excel对象，您的电脑可能未安装Excel");
+                MyLog.Error("无法创建Excel对象，您的电脑可能未安装Excel");
                 return;
             }
             Microsoft.Office.Interop.Excel.Workbooks workbooks = xlApp.Workbooks;
@@ -160,7 +164,8 @@ namespace AYS_YKYC
                 System.Windows.Forms.Application.DoEvents();
             }
             worksheet.Columns.EntireColumn.AutoFit();//列宽自适应
-            MessageBox.Show(fileName + "资料保存成功", "提示", MessageBoxButtons.OK);
+            //MessageBox.Show(fileName + "资料保存成功", "提示", MessageBoxButtons.OK);
+            MyLog.Info(fileName + "资料保存成功");
             if (saveFileName != "")
             {
                 try
@@ -170,11 +175,17 @@ namespace AYS_YKYC
                 }
                 catch (Exception ex)
                 {//fileSaved = false;                      
-                    MessageBox.Show("导出文件时出错,文件可能正被打开！\n" + ex.Message);
+                    //MessageBox.Show("导出文件时出错,文件可能正被打开！\n" + ex.Message);
+                    MyLog.Error("导出文件时出错,文件可能正被打开！\n" + ex.Message);
                 }
             }
             xlApp.Quit();
             GC.Collect();//强行销毁 
+        }
+
+        private void QueryMyDB_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            mform.mySqlForm = null;
         }
     }
 }

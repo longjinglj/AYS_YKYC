@@ -118,6 +118,7 @@ namespace AYS_YKYC
                     e.Cancel = false;
                 }
             }
+            mform.mySettingForm = null;
         }
     }
 }

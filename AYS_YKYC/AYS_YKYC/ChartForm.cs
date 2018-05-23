@@ -40,10 +40,11 @@ namespace AYS_YKYC
         bool recurve_flag = false;
 
         private delegate void SetDtCallback(DataTable dt);
-
-        public ChartForm()
+        public MainForm mform;
+        public ChartForm(AYS_YKYC.MainForm parent)
         {
             InitializeComponent();
+            mform = parent;
         }
 
         private void ChartForm_Load(object sender, EventArgs e)
@@ -77,14 +78,14 @@ namespace AYS_YKYC
             String tempbefore = timebefore.ToString("yyyy-MM-dd HH:mm:ss");
             dateTimePicker1.Text = tempbefore;
 
-         
+
             z1.GraphPane.Title.Text = "图表";
             z1.GraphPane.XAxis.Title.Text = "时间";
             z1.GraphPane.YAxis.Title.Text = "值";
             z1.GraphPane.XAxis.CrossAuto = true;
             //z1.GraphPane.XAxis.MaxAuto = true;
             z1.GraphPane.XAxis.Type = ZedGraph.AxisType.Date;
-          
+
 
             button1.Text = "关闭实时更新";
             recurve_thread = new Thread(refreshcurve);
@@ -100,7 +101,7 @@ namespace AYS_YKYC
             if (ColorPos >= ChoseColorList.Length) ColorPos = 0;
             return ChoseColorList[ColorPos];
         }
-
+        string chooseitem = null;
         private void treeView1_DoubleClick(object sender, EventArgs e)
         {
             for (int i = 0; i < NodeList.Count(); i++)
@@ -111,6 +112,7 @@ namespace AYS_YKYC
 
                     String TableparentName = treeView1.SelectedNode.Parent.Text + "_解析值";//数据库名字
                     String TableName = "table_" + treeView1.SelectedNode.Parent.Text + "_解析值";//要查询的数据库的名称
+                    chooseitem = treeView1.SelectedNode.Text;
 
                     String SelectColum = treeView1.SelectedNode.Text;//对应数据库中的列（就是选中的项的名称）
                     //根据此处的APID-内容，进行下一步解析和处理
@@ -133,7 +135,7 @@ namespace AYS_YKYC
                     dv.Sort = "CreateTime desc";
                     showtable = dv.ToTable();
                     dataGridView1.DataSource = showtable;//将DataTable数据与dataGridview绑定
-                    
+
                     double[] x = new double[mTable.Rows.Count];//x轴
                     double[] y = new double[mTable.Rows.Count];
 
@@ -193,7 +195,7 @@ namespace AYS_YKYC
                         CurveItem mycurve = z1.GraphPane.CurveList[m];
                         if (mycurve.Label.Text == showSelectColum)
                         {
-                           
+
                             PointPairList list = mycurve.Points as PointPairList;
 
                             #region   删除曲线中时间以前的点
@@ -221,7 +223,7 @@ namespace AYS_YKYC
                             {
                                 lasttime = list[list.Count - 1].X;
                             }
-                            
+
                             for (int j = 0; j < x.Length; j++)
                             {
                                 if (x[j] > lasttime)
@@ -234,10 +236,13 @@ namespace AYS_YKYC
                     }
 
                     if (!samecurveflag)
-                        z1.GraphPane.AddCurve(showSelectColum, x, y, ChooseColor(), ZedGraph.SymbolType.Circle);//显示曲线
+                    {
+                        z1.GraphPane.AddCurve(showSelectColum, x, y, ChooseColor(), ZedGraph.SymbolType.None);//显示曲线
+                        comboBox1.Items.Add(showSelectColum);
+                    }
                     samecurveflag = false;
 
-                   
+
                     int t = z1.GraphPane.CurveList.Count;
                     for (int m = 0; m < t; m++)
                     {
@@ -248,9 +253,9 @@ namespace AYS_YKYC
                     z1.AxisChange();
                     z1.Invalidate();
 
-                    comboBox1.Items.Add(showSelectColum);
 
-                   
+
+
                 }
             }
         }
@@ -273,7 +278,12 @@ namespace AYS_YKYC
                 button1.Text = "开启实时更新";
             }
         }
+        #region 获取数据库
 
+
+
+
+        #endregion
         void refreshcurve()
         {
             while (recurve_flag)
@@ -301,13 +311,45 @@ namespace AYS_YKYC
                     DataTable mTable = new DataTable(); // Don't forget initialize!新建1个DataTable类型
                     mAdapter.Fill(mTable);//将数据库中取出内容填到DataTable中
                                           //dataGridView1.DataSource = mTable;//将DataTable数据与dataGridview绑定
-                    if (m == (curvecount - 1))
+                                          /////////////////////////////////////////////////////////////////////////////////////////////////
+                    TableName = "table_" + gettablename[0] + "_源码";//要查询的数据库的名称
+
+                    SelectColum = gettablename[1];//对应数据库中的列（就是选中的项的名称）
+                                                  //根据此处的APID-内容，进行下一步解析和处理
+
+                    //查询数据库时的限定语句（时间限定）
+                    Str_Condition_time = "CreateTime >= '" + dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'"
+                                    + "and CreateTime <= '" + dateTimePicker2.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'";
+
+                    //最终查询数据库的cmd语句
+                    cmd = "Select CreateTime,[" + SelectColum + "] From " + TableName + " where " + Str_Condition_time;
+
+                    mAdapter = new SQLiteDataAdapter(cmd, dbConnection);
+                    DataTable yuanmamTable = new DataTable(); // Don't forget initialize!新建1个DataTable类型
+                    mAdapter.Fill(yuanmamTable);//将数据库中取出内容填到DataTable中
+
+
+                    if (chooseitem == null)
                     {
-                        DataTable showtable = new DataTable();
-                        DataView dv = mTable.DefaultView;
-                        dv.Sort = "CreateTime desc";
-                        showtable = dv.ToTable();
-                        SetDT(showtable);
+                        if (m == (curvecount - 1))
+                        {
+                            DataTable showtable = new DataTable();
+                            DataView dv = mTable.DefaultView;
+                            dv.Sort = "CreateTime desc";
+                            showtable = dv.ToTable();
+                            SetDT(showtable);
+                        }
+                    }
+                    else
+                    {
+                        if(mycurve.Label.Text == chooseitem)
+                        {
+                            DataTable showtable = new DataTable();
+                            DataView dv = mTable.DefaultView;
+                            dv.Sort = "CreateTime desc";
+                            showtable = dv.ToTable();
+                            SetDT(showtable);
+                        }
                     }
 
                     double[] x = new double[mTable.Rows.Count];//x轴
@@ -315,6 +357,7 @@ namespace AYS_YKYC
 
                     try
                     {
+
                         //循环将DataTable中的时间和数值赋予x和y数组
                         for (int j = 0; j < mTable.Rows.Count; j++)
                         {
@@ -329,25 +372,10 @@ namespace AYS_YKYC
                     }
                     catch
                     {
-                        TableName = "table_" + gettablename[0] + "_源码";//要查询的数据库的名称
 
-                        SelectColum = gettablename[1];//对应数据库中的列（就是选中的项的名称）
-                                                      //根据此处的APID-内容，进行下一步解析和处理
-
-                        //查询数据库时的限定语句（时间限定）
-                        Str_Condition_time = "CreateTime >= '" + dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'"
-                                        + "and CreateTime <= '" + dateTimePicker2.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'";
-
-                        //最终查询数据库的cmd语句
-                        cmd = "Select CreateTime,[" + SelectColum + "] From " + TableName + " where " + Str_Condition_time;
-
-                        mAdapter = new SQLiteDataAdapter(cmd, dbConnection);
-                        DataTable yuanmamTable = new DataTable(); // Don't forget initialize!新建1个DataTable类型
-                        mAdapter.Fill(yuanmamTable);//将数据库中取出内容填到DataTable中
 
                         x = new double[yuanmamTable.Rows.Count];//x轴
                         y = new double[yuanmamTable.Rows.Count];
-
                         for (int j = 0; j < yuanmamTable.Rows.Count; j++)
                         {
                             // Trace.WriteLine(mTable.Rows[j]["CreateTime"] + ":" + mTable.Rows[j][SelectColum]);
@@ -365,16 +393,16 @@ namespace AYS_YKYC
 
                     //Color originalcolor = mycurve.Color;
                     //z1.GraphPane.CurveList.RemoveAt(0);
-                    //z1.GraphPane.AddCurve(showSelectColum, x, y, originalcolor, ZedGraph.SymbolType.Circle);//显示曲线
+                    //z1.GraphPane.AddCurve(showSelectColum, x, y, originalcolor, ZedGraph.SymbolType.None);//显示曲线
 
 
 
                     PointPairList list = mycurve.Points as PointPairList;
                     DateTime ori = new DateTime(1000, 1, 1, 0, 0, 0);
-                    double lasttime= (double)new XDate(ori);
+                    double lasttime = (double)new XDate(ori);
 
                     #region   删除曲线中时间以前的点
-                    if(x.Length==0)
+                    if (x.Length == 0)
                     {
                         list.Clear();
                     }
@@ -392,23 +420,23 @@ namespace AYS_YKYC
                     }
                     #endregion
 
-                    if (list.Count>0)
+                    if (list.Count > 0)
                     {
-                         lasttime = list[list.Count - 1].X;
+                        lasttime = list[list.Count - 1].X;
                     }
-                  
-                   
+
+
                     for (int j = 0; j < x.Length; j++)
                     {
                         if (x[j] > lasttime)
                             list.Add(x[j], y[j]);
                     }
-                 
+
 
                     z1.AxisChange();
                     z1.Invalidate();
 
-                  
+
                 }
 
 
@@ -495,9 +523,10 @@ namespace AYS_YKYC
         {
             if (recurve_thread != null)
             {
-                recurve_thread.Abort();
                 recurve_flag = false;
+                recurve_thread.Abort();
             }
+            mform.myChartForm = null;
         }
 
         private void btn_LogCtr_Click(object sender, EventArgs e)
@@ -541,33 +570,33 @@ namespace AYS_YKYC
         private void button5_Click(object sender, EventArgs e)
         {
             openFileDialog1.InitialDirectory = Program.GetStartupPath() + @"配置文件\chartform配置文件\";
-            string openpath="";
+            string openpath = "";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 //   openFileDialog1.InitialDirectory = Program.GetStartupPath() + @"LogData\";
                 try
                 {
-                     openpath = openFileDialog1.FileName;
+                    openpath = openFileDialog1.FileName;
                 }
                 catch
                 {
                     MyLog.Info("配置文件打开失败");
-                    return;   
+                    return;
                 }
             }
 
 
 
             string str = Application.StartupPath;
-           
+
 
             TextReader reader = new StreamReader(openpath);
             string line;
-           
+
 
             line = reader.ReadLine();
-           
-            while(line!=""&&line!=null)
+
+            while (line != "" && line != null)
             {
                 string[] gettablename = line.Split(':');
 
@@ -575,7 +604,7 @@ namespace AYS_YKYC
 
                 String SelectColum = gettablename[1];//对应数据库中的列（就是选中的项的名称）
                 String TableparentName = gettablename[0] + "_解析值";//数据库名字
-         
+
 
                 //查询数据库时的限定语句（时间限定）
                 string Str_Condition_time = "CreateTime >= '" + dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'"
@@ -618,7 +647,7 @@ namespace AYS_YKYC
                     TableName = "table_" + gettablename[0] + "_源码";//要查询的数据库的名称
 
                     SelectColum = gettablename[1];//对应数据库中的列（就是选中的项的名称）
-                                                              //根据此处的APID-内容，进行下一步解析和处理
+                                                  //根据此处的APID-内容，进行下一步解析和处理
 
                     //查询数据库时的限定语句（时间限定）
                     Str_Condition_time = "CreateTime >= '" + dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'"
@@ -690,7 +719,7 @@ namespace AYS_YKYC
                 }
 
                 if (!samecurveflag)
-                    z1.GraphPane.AddCurve(showSelectColum, x, y, ChooseColor(), ZedGraph.SymbolType.Circle);//显示曲线
+                    z1.GraphPane.AddCurve(showSelectColum, x, y, ChooseColor(), ZedGraph.SymbolType.None);//显示曲线
                 samecurveflag = false;
 
                 int t = z1.GraphPane.CurveList.Count;

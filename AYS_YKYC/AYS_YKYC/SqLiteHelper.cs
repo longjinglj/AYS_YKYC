@@ -111,7 +111,13 @@ namespace AYS_YKYC
             //当插入的数据长度不等于字段数目时引发异常
             if (values.Length != fieldCount)
             {
+                try { 
                 throw new SQLiteException("values.Length!=fieldCount");
+                }
+                catch
+                {
+
+                }
             }
 
             string queryString = "INSERT INTO " + tableName + " VALUES (" + "'" + values[0] + "'";

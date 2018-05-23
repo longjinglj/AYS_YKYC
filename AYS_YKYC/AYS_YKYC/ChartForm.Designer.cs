@@ -49,6 +49,8 @@
             this.btn_LogCtr = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -59,14 +61,17 @@
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeView1
             // 
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
+            this.treeView1.Margin = new System.Windows.Forms.Padding(4);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(147, 592);
+            this.treeView1.Size = new System.Drawing.Size(196, 908);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
@@ -76,10 +81,11 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(292, 592);
+            this.dataGridView1.Size = new System.Drawing.Size(443, 908);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
             // 
@@ -87,43 +93,48 @@
             // 
             this.dateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(105, 30);
+            this.dateTimePicker1.Location = new System.Drawing.Point(92, 31);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(155, 21);
+            this.dateTimePicker1.Size = new System.Drawing.Size(205, 25);
             this.dateTimePicker1.TabIndex = 3;
             // 
             // dateTimePicker2
             // 
             this.dateTimePicker2.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(105, 59);
+            this.dateTimePicker2.Location = new System.Drawing.Point(92, 67);
+            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(155, 21);
+            this.dateTimePicker2.Size = new System.Drawing.Size(205, 25);
             this.dateTimePicker2.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 33);
+            this.label1.Location = new System.Drawing.Point(13, 34);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(67, 15);
             this.label1.TabIndex = 4;
             this.label1.Text = "开始时间";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(46, 65);
+            this.label2.Location = new System.Drawing.Point(13, 74);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.Size = new System.Drawing.Size(67, 15);
             this.label2.TabIndex = 4;
             this.label2.Text = "停止时间";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(297, 57);
+            this.button1.Location = new System.Drawing.Point(348, 64);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(178, 23);
+            this.button1.Size = new System.Drawing.Size(237, 29);
             this.button1.TabIndex = 5;
             this.button1.Text = "开启实时更新";
             this.button1.UseVisualStyleBackColor = true;
@@ -132,25 +143,28 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(354, 27);
+            this.comboBox1.Location = new System.Drawing.Point(424, 27);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 20);
+            this.comboBox1.Size = new System.Drawing.Size(160, 23);
             this.comboBox1.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(295, 30);
+            this.label3.Location = new System.Drawing.Point(345, 31);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.Size = new System.Drawing.Size(67, 15);
             this.label3.TabIndex = 4;
             this.label3.Text = "显示项目";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(481, 27);
+            this.button2.Location = new System.Drawing.Point(593, 27);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(96, 23);
+            this.button2.Size = new System.Drawing.Size(128, 29);
             this.button2.TabIndex = 5;
             this.button2.Text = "从图中移除";
             this.button2.UseVisualStyleBackColor = true;
@@ -158,9 +172,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(481, 57);
+            this.button3.Location = new System.Drawing.Point(593, 64);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(96, 23);
+            this.button3.Size = new System.Drawing.Size(128, 29);
             this.button3.TabIndex = 7;
             this.button3.Text = "清空图表";
             this.button3.UseVisualStyleBackColor = true;
@@ -176,6 +191,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -185,46 +201,37 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1080, 592);
-            this.splitContainer1.SplitterDistance = 147;
+            this.splitContainer1.Size = new System.Drawing.Size(1440, 908);
+            this.splitContainer1.SplitterDistance = 196;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 8;
             // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.z1);
-            this.splitContainer2.Panel1.Controls.Add(this.button5);
-            this.splitContainer2.Panel1.Controls.Add(this.button4);
-            this.splitContainer2.Panel1.Controls.Add(this.btn_LogCtr);
-            this.splitContainer2.Panel1.Controls.Add(this.button3);
-            this.splitContainer2.Panel1.Controls.Add(this.button2);
-            this.splitContainer2.Panel1.Controls.Add(this.comboBox1);
-            this.splitContainer2.Panel1.Controls.Add(this.dateTimePicker1);
-            this.splitContainer2.Panel1.Controls.Add(this.dateTimePicker2);
-            this.splitContainer2.Panel1.Controls.Add(this.button1);
-            this.splitContainer2.Panel1.Controls.Add(this.label1);
-            this.splitContainer2.Panel1.Controls.Add(this.label2);
-            this.splitContainer2.Panel1.Controls.Add(this.label3);
+            this.splitContainer2.Panel1.Controls.Add(this.panel2);
+            this.splitContainer2.Panel1.Controls.Add(this.panel1);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer2.Size = new System.Drawing.Size(929, 592);
-            this.splitContainer2.SplitterDistance = 633;
+            this.splitContainer2.Size = new System.Drawing.Size(1239, 908);
+            this.splitContainer2.SplitterDistance = 791;
+            this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             // 
             // z1
             // 
-            this.z1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.z1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.z1.IsShowPointValues = true;
-            this.z1.Location = new System.Drawing.Point(48, 146);
+            this.z1.Location = new System.Drawing.Point(0, 0);
+            this.z1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.z1.Name = "z1";
             this.z1.ScrollGrace = 0D;
             this.z1.ScrollMaxX = 0D;
@@ -233,15 +240,16 @@
             this.z1.ScrollMinX = 0D;
             this.z1.ScrollMinY = 0D;
             this.z1.ScrollMinY2 = 0D;
-            this.z1.Size = new System.Drawing.Size(512, 379);
+            this.z1.Size = new System.Drawing.Size(791, 744);
             this.z1.TabIndex = 23;
             this.z1.UseExtendedPrintDialog = true;
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(298, 90);
+            this.button5.Location = new System.Drawing.Point(349, 105);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(120, 23);
+            this.button5.Size = new System.Drawing.Size(160, 29);
             this.button5.TabIndex = 22;
             this.button5.Text = "载入配置";
             this.button5.UseVisualStyleBackColor = true;
@@ -249,9 +257,10 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(105, 90);
+            this.button4.Location = new System.Drawing.Point(92, 105);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(120, 23);
+            this.button4.Size = new System.Drawing.Size(160, 29);
             this.button4.TabIndex = 21;
             this.button4.Text = "保存配置";
             this.button4.UseVisualStyleBackColor = true;
@@ -259,9 +268,10 @@
             // 
             // btn_LogCtr
             // 
-            this.btn_LogCtr.Location = new System.Drawing.Point(449, 90);
+            this.btn_LogCtr.Location = new System.Drawing.Point(551, 105);
+            this.btn_LogCtr.Margin = new System.Windows.Forms.Padding(4);
             this.btn_LogCtr.Name = "btn_LogCtr";
-            this.btn_LogCtr.Size = new System.Drawing.Size(111, 23);
+            this.btn_LogCtr.Size = new System.Drawing.Size(148, 29);
             this.btn_LogCtr.TabIndex = 20;
             this.btn_LogCtr.Text = "侧边栏隐藏>>>";
             this.btn_LogCtr.UseVisualStyleBackColor = true;
@@ -271,12 +281,42 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.button5);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.button4);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.btn_LogCtr);
+            this.panel1.Controls.Add(this.dateTimePicker2);
+            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.dateTimePicker1);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(791, 164);
+            this.panel1.TabIndex = 24;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.z1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 164);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(791, 744);
+            this.panel2.TabIndex = 25;
+            // 
             // ChartForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1080, 592);
+            this.ClientSize = new System.Drawing.Size(1440, 908);
             this.Controls.Add(this.splitContainer1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ChartForm";
             this.Text = "ChartForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChartForm_FormClosing);
@@ -287,11 +327,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -318,5 +360,7 @@
         private System.Windows.Forms.BindingSource bindingSource1;
         private ZedGraph.ZedGraphControl z1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel1;
     }
 }

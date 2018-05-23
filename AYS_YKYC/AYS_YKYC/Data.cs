@@ -63,6 +63,7 @@ namespace AYS_YKYC
         //创建明密态全局变量
         public static bool MingMiTag = false;
 
+        public static string  XStime_str = "2018-5-1 0:0:0";
         public static ManualResetEvent ServerConnectEvent = new ManualResetEvent(false);
         public static ManualResetEvent ServerConnectEvent2 = new ManualResetEvent(false);
         public struct CRT_STRUCT
@@ -277,7 +278,7 @@ namespace AYS_YKYC
             {
                 case "十六进制显示":
                     {
-                        result = strvalue;
+                        result = "0x"+strvalue;
                     }
                     break;
                 case "十进制显示":
@@ -303,25 +304,25 @@ namespace AYS_YKYC
                 case "枚举1方式显示":
                     {
                         long value = Convert.ToInt64(strvalue, 16);
-                        if (value == 0x11U)
+                        if (value == 0x11U|| value == 0x01U)
                             result = "上电";
                         else
-                           if (value == 0x22U)
+                           if (value == 0x22U || value == 0x02U)
                             result = "晶振失效复位";
                         else
-                           if (value == 0x44U)
+                           if (value == 0x44U || value == 0x04U)
                             result = "看门狗复位";
                         else
-                           if (value == 0x88U)
+                           if (value == 0x88U || value == 0x08U)
                             result = "仿真器复位";
                         else
-                           if (value == 0x99U)
+                           if (value == 0x99U || value == 0x09U)
                             result = "CPU复位";
                         else
-                           if (value == 0xAAU)
+                           if (value == 0xAAU || value == 0x0AU)
                             result = "软件复位";
                         else
-                           if (value == 0x55U)
+                           if (value == 0x55U || value == 0x05U)
                             result = "外部复位按钮复位";
                         else
                            if (value == 0x00U)
@@ -734,10 +735,10 @@ namespace AYS_YKYC
                             if (value == 0x01)
                             result = "2.4Kbps";
                         else
-                            if (value == 0x10)
+                            if (value == 0x02)
                             result = "4.8Kbps";
                         else
-                            if (value == 0x11)
+                            if (value == 0x03)
                             result = "9.6Kbps";
                     }
                     break;
@@ -757,6 +758,9 @@ namespace AYS_YKYC
                                                (((~(value & 0x7FFF) & 0x7FFF) + 1) * (-0.01));
                         result = tempvalue.ToString("f2");
                     }
+                    break;
+                default:
+                    result = "0x"+strvalue;
                     break;
             }
             return result;

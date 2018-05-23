@@ -106,7 +106,7 @@ namespace AYS_YKYC
 
 
             FileCreateDat(Program.GetStartupPath() + @"接收\USRP\Telemetry\", out file_out1);
-            FileCreateDat(Program.GetStartupPath() + @"发送\USRP\Telecmd", out file_out2);
+            FileCreateDat(Program.GetStartupPath() + @"发送\USRP\Telecmd\", out file_out2);
             FileCreateDat(Program.GetStartupPath() + @"接收\瑞信丰\原始数据\", out file_out3);
             FileCreateDat(Program.GetStartupPath() + @"接收\瑞信丰\遥测数据\", out file_out4);
             FileCreateDat(Program.GetStartupPath() + @"发送\总控设备（遥测）\", out file_out5);
@@ -220,8 +220,16 @@ namespace AYS_YKYC
 
             while (SaveOn)
             {
+
+             
+
                 if (myQueue.Count() > 0)
                 {
+
+                    if (key == 2)
+                    {
+                        int a = 0;
+                    }
                     try
                     {
                         myLock.EnterReadLock();

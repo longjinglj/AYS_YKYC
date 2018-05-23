@@ -98,6 +98,8 @@ namespace AYS_YKYC
                 mySaveFileThread.FileSaveStart();
 
                 Data.AllThreadTag = true;
+
+               
             }
             catch (Exception ex)
             {
@@ -159,9 +161,23 @@ namespace AYS_YKYC
             {
                 Trace.WriteLine(ex.Message);
             }
+          
+            autostart(sender,e);
             Trace.WriteLine("完成初始化！");
         }
 
+
+        private void autostart(object sender, EventArgs e)
+        {
+            btn_ZK1_Open_Click(sender, e);
+            btn_ZK1_YC_Open_Click(sender, e);
+            buttonCRT_Click(btn_CRTa_Open, e);
+            //     buttonCRT_Click(btn_CRTb_Open, e);
+
+            启动toolStripMenuItem.Text = "停止";
+
+            一键启动APIDToolStripMenuItem.PerformClick();
+        }
         private void initTable()
         {
             #region 初始化DataTable
@@ -326,6 +342,7 @@ namespace AYS_YKYC
         {
             toolStripStatusLabel3.Text = "剩余空间" + DiskInfo.GetFreeSpace(Path[0].ToString()) + "MB";
             toolStripStatusLabel5.Text = "当前时间：" + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + " ";
+            toolStripStatusLabel7.Text = "星上时间：" + Data.XStime_str;
 
             TimeSpan ts = DateTime.Now.Subtract(startDT);
             toolStripStatusLabel6.Text = "已运行：" + ts.Days.ToString() + "天" +
@@ -338,15 +355,18 @@ namespace AYS_YKYC
         private void 系统设置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MyLog.Info("进行系统设置");
-            if (mySettingForm != null)
+           
+            if (mySettingForm == null)
             {
-                mySettingForm.Activate();
+                mySettingForm = new SettingForm(this);
+                mySettingForm.Show();
             }
             else
             {
-                mySettingForm = new SettingForm(this);
+                mySettingForm.Show();
+                mySettingForm.Activate();
             }
-            mySettingForm.Show();
+           
         }
 
 
@@ -682,6 +702,13 @@ namespace AYS_YKYC
                 //     buttonCRT_Click(btn_CRTb_Open, e);
 
                 启动toolStripMenuItem.Text = "停止";
+
+
+                mySaveFileThread.FileClose();
+                mySaveFileThread = new SaveFile();
+                mySaveFileThread.FileInit();
+                mySaveFileThread.FileSaveStart();
+
             }
             else
             {
@@ -801,7 +828,8 @@ namespace AYS_YKYC
             }
             else
             {
-                MessageBox.Show("遥控指令格式错误，无法发送！！");
+                //MessageBox.Show("遥控指令格式错误，无法发送！！");
+                MyLog.Error("遥控指令格式错误，无法发送！！");
             }
         }
 
@@ -827,7 +855,7 @@ namespace AYS_YKYC
             }
             else
             {
-                mySqlForm = new QueryMyDB();
+                mySqlForm = new QueryMyDB(this);
             }
             mySqlForm.Show();
         }
@@ -977,7 +1005,8 @@ namespace AYS_YKYC
             }
             else
             {
-                MessageBox.Show(this, "自定义指令长度或名称错误，无法添加！", "错误提示", MessageBoxButtons.YesNo);
+               // MessageBox.Show(this, "自定义指令长度或名称错误，无法添加！", "错误提示", MessageBoxButtons.YesNo);
+                MyLog.Error("自定义指令长度或名称错误，无法添加！");
             }
 
         }
@@ -992,7 +1021,7 @@ namespace AYS_YKYC
             //{
             //    myChartForm = new ChartForm();
             //}
-            myChartForm = new ChartForm();
+            myChartForm = new ChartForm(this);
             myChartForm.Show();
         }
 
@@ -1035,6 +1064,8 @@ namespace AYS_YKYC
                         aPID_Struct.apidForm = form;
                         aPID_Struct.apidName = apidName;
                         Data.ApidList.Add(aPID_Struct);
+                        if(i== (dataGridView3.Rows.Count-2))
+                            Data.ApidList[0].apidForm.Activate();
                     }
                     else
                     {

@@ -343,6 +343,21 @@ namespace AYS_YKYC
             int mpdu_point = (int)((DealData[14] & 0x07) << 8) + (int)DealData[15];
             Data.dtVCDU.Rows[0]["首导头指针"] = "0x" + mpdu_point.ToString("x3");
 
+            #region 更新星上时间
+            byte[] XStime = new byte[4];
+            Array.Copy(data, 6, XStime, 0, 4);
+
+
+            int value = (XStime[0] << 24) + (XStime[1] << 16) + (XStime[2] << 8) + XStime[3];
+            DateTime starttime = new DateTime(2018, 5, 1, 0, 0, 0);
+            DateTime time = Function.BytesToDateTime(value, starttime);
+            Data.XStime_str = time.Year + "-" + time.Month + "-" + time.Day + " " + time.Hour + ":" + time.Minute + ":" + time.Second;
+
+
+
+
+            #endregion
+
             String epdu_data = "";
             for (int i = 16; i < RecvNum; i++)
             {
@@ -355,6 +370,8 @@ namespace AYS_YKYC
             (string)Data.dtVCDU.Rows[0]["备用"] ,(string) Data.dtVCDU.Rows[0]["首导头指针"],epdu_data});
 
             #endregion 处理VCDU-MPDU
+
+
 
 
             #region 处理EPDU
@@ -408,63 +425,67 @@ namespace AYS_YKYC
                             }
                         }
 
-                        if (Data.EpduBuf_List.Count >= epdu_len + 7)
+                        lock (Data.EpduBuf_List)
                         {
-                            byte[] Epdu_Frame = new byte[epdu_len + 7];
-                            Data.EpduBuf_List.CopyTo(0, Epdu_Frame, 0, epdu_len + 7);
-
-                            lock (Data.EpduBuf_List)
+                            if (Data.EpduBuf_List.Count >= epdu_len + 7)
                             {
+                                byte[] Epdu_Frame = new byte[epdu_len + 7];
+
+                                Data.EpduBuf_List.CopyTo(0, Epdu_Frame, 0, epdu_len + 7);
                                 Data.EpduBuf_List.RemoveRange(0, epdu_len + 7);
-                            }
-                            #region 处理EPDU
-                            string Version = Convert.ToString(Epdu_Frame[0], 2).PadLeft(8, '0').Substring(0, 3);
-                            string Type = Convert.ToString(Epdu_Frame[0], 2).PadLeft(8, '0').Substring(3, 1);
-                            string DataTag = Convert.ToString(Epdu_Frame[0], 2).PadLeft(8, '0').Substring(4, 1);
-
-                            int apid = (int)((Epdu_Frame[0] & 0x07) << 8) + (int)Epdu_Frame[1];
-                            string APID = "0x" + apid.ToString("x3");
-
-                            string DivTag = Convert.ToString(Epdu_Frame[2], 2).PadLeft(8, '0').Substring(0, 2);
-
-                            int bagcount = (int)((Epdu_Frame[2] & 0x3f) << 8) + (int)Epdu_Frame[3];
-                            string BagCount = "0x" + apid.ToString("x3");
-
-                            string BagLen = "0x" + Epdu_Frame[4].ToString("x2") + Epdu_Frame[5].ToString("x2");
-
-                            String DataStr = "";
-                            for (int i = 6; i < epdu_len + 1; i++)
-                            {
-                                DataStr += Epdu_Frame[i].ToString("x2");
-                            }
-
-                            string timestr = string.Format("{0}-{1:D2}-{2:D2} {3:D2}:{4:D2}:{5:D2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-
-                            Data.sql.InsertValues("table_Epdu",
-                                new string[] { "EPDU", timestr, Version, Type, DataTag, APID, DivTag, BagCount, BagLen, DataStr });
 
 
-                            Trace.WriteLine("DealEpdu---APID-------" + APID);
+                                #region 处理EPDU
+                                string Version = Convert.ToString(Epdu_Frame[0], 2).PadLeft(8, '0').Substring(0, 3);
+                                string Type = Convert.ToString(Epdu_Frame[0], 2).PadLeft(8, '0').Substring(3, 1);
+                                string DataTag = Convert.ToString(Epdu_Frame[0], 2).PadLeft(8, '0').Substring(4, 1);
 
-                            foreach (DataRow dr in Data.dtAPID.Rows)///
-                            {
-                                if ((string)dr["APID"] == APID)
+                                int apid = (int)((Epdu_Frame[0] & 0x07) << 8) + (int)Epdu_Frame[1];
+                                string APID = "0x" + apid.ToString("x3");
+
+                                string DivTag = Convert.ToString(Epdu_Frame[2], 2).PadLeft(8, '0').Substring(0, 2);
+
+                                int bagcount = (int)((Epdu_Frame[2] & 0x3f) << 8) + (int)Epdu_Frame[3];
+                                string BagCount = "0x" + apid.ToString("x3");
+
+                                string BagLen = "0x" + Epdu_Frame[4].ToString("x2") + Epdu_Frame[5].ToString("x2");
+
+                                String DataStr = "";
+                                for (int i = 6; i < epdu_len + 1; i++)
                                 {
-                                    dr["数量"] = (int)dr["数量"] + 1;
+                                    DataStr += Epdu_Frame[i].ToString("x2");
+                                }
 
-                                    foreach (Data.APID_Struct item in Data.ApidList)
+                                string timestr = string.Format("{0}-{1:D2}-{2:D2} {3:D2}:{4:D2}:{5:D2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+
+                                Data.sql.InsertValues("table_Epdu",
+                                    new string[] { "EPDU", timestr, Version, Type, DataTag, APID, DivTag, BagCount, BagLen, DataStr });
+
+
+                                Trace.WriteLine("DealEpdu---APID-------" + APID);
+
+                                foreach (DataRow dr in Data.dtAPID.Rows)///
+                                {
+                                    if ((string)dr["APID"] == APID)
                                     {
-                                        if (item.apidName == (string)dr["名称"])
+                                        dr["数量"] = (int)dr["数量"] + 1;
+
+                                        foreach (Data.APID_Struct item in Data.ApidList)
                                         {
-                                            item.apidForm.DataQueue.Enqueue(Epdu_Frame);
+                                            if (item.apidName == (string)dr["名称"])
+                                            {
+                                                item.apidForm.DataQueue.Enqueue(Epdu_Frame);
+                                            }
                                         }
                                     }
                                 }
+                                #endregion 处理EPDU
                             }
-                            #endregion 处理EPDU
                         }
-                        else
-                            Thread.Sleep(1);
+
+
+                        Thread.Sleep(1);
+
                     }
                     else
                     {
@@ -472,7 +493,7 @@ namespace AYS_YKYC
                         {
                             Data.EpduBuf_List.Clear();
                         }
-                        
+
                     }
                 }
                 else
@@ -513,7 +534,7 @@ namespace AYS_YKYC
                     Byte[] temp = Data.DataQueue_USRP_telecmd.Dequeue();
                     myClientSocket.Send(temp);
                     //存储发给USRP的遥控数据
-                    SaveFile.DataQueue_out1.Enqueue(temp);
+                    SaveFile.DataQueue_out2.Enqueue(temp);
                     Data.dtUSRP.Rows[3][1] = (int)Data.dtUSRP.Rows[3][1] + 1;
                 }
             }

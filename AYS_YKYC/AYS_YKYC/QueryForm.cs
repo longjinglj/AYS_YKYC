@@ -111,5 +111,10 @@ namespace AYS_YKYC
                 return;
             }
         }
+
+        private void QueryForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            mform.myQueryForm = null;
+        }
     }
 }

@@ -119,7 +119,8 @@ namespace AYS_YKYC
 
                     if ((Epdu.Length-6) < TotalLen)
                     {
-                        MessageBox.Show(CurrentApidName + "收到EPDU长度错误，无法解析!!");
+                        //MessageBox.Show(CurrentApidName + "收到EPDU长度错误，无法解析!!");
+                        MyLog.Error("收到EPDU长度错误，无法解析!!");
                     }
                     else
                     {

@@ -50,9 +50,10 @@
             this.dateTimePicker2.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dateTimePicker2.Dock = System.Windows.Forms.DockStyle.Top;
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(479, 34);
+            this.dateTimePicker2.Location = new System.Drawing.Point(640, 43);
+            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(192, 24);
+            this.dateTimePicker2.Size = new System.Drawing.Size(257, 28);
             this.dateTimePicker2.TabIndex = 188;
             this.dateTimePicker2.Value = new System.DateTime(2017, 3, 9, 15, 31, 0, 0);
             // 
@@ -61,9 +62,10 @@
             this.dateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dateTimePicker1.Dock = System.Windows.Forms.DockStyle.Top;
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(281, 34);
+            this.dateTimePicker1.Location = new System.Drawing.Point(375, 43);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(192, 24);
+            this.dateTimePicker1.Size = new System.Drawing.Size(257, 28);
             this.dateTimePicker1.TabIndex = 187;
             this.dateTimePicker1.Value = new System.DateTime(2017, 3, 9, 15, 31, 0, 0);
             // 
@@ -79,9 +81,10 @@
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(0, 66);
+            this.listView1.Location = new System.Drawing.Point(0, 82);
+            this.listView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(792, 490);
+            this.listView1.Size = new System.Drawing.Size(1055, 612);
             this.listView1.TabIndex = 184;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -109,9 +112,10 @@
             this.comboBox1.Items.AddRange(new object[] {
             "接收",
             "发送"});
-            this.comboBox1.Location = new System.Drawing.Point(3, 34);
+            this.comboBox1.Location = new System.Drawing.Point(4, 43);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(113, 23);
+            this.comboBox1.Size = new System.Drawing.Size(151, 26);
             this.comboBox1.TabIndex = 182;
             this.comboBox1.Text = "接收";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
@@ -123,9 +127,10 @@
             this.label5.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label5.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(3, 17);
+            this.label5.Location = new System.Drawing.Point(4, 21);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(113, 14);
+            this.label5.Size = new System.Drawing.Size(151, 18);
             this.label5.TabIndex = 181;
             this.label5.Text = "数据来源";
             // 
@@ -135,9 +140,10 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(479, 17);
+            this.label2.Location = new System.Drawing.Point(640, 21);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(192, 14);
+            this.label2.Size = new System.Drawing.Size(257, 18);
             this.label2.TabIndex = 180;
             this.label2.Text = "结束时间";
             // 
@@ -147,9 +153,10 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(281, 17);
+            this.label1.Location = new System.Drawing.Point(375, 21);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(192, 14);
+            this.label1.Size = new System.Drawing.Size(257, 18);
             this.label1.TabIndex = 179;
             this.label1.Text = "开始时间";
             // 
@@ -160,19 +167,21 @@
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Items.AddRange(new object[] {
             "USRP"});
-            this.comboBox2.Location = new System.Drawing.Point(122, 34);
+            this.comboBox2.Location = new System.Drawing.Point(163, 43);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(153, 23);
+            this.comboBox2.Size = new System.Drawing.Size(204, 26);
             this.comboBox2.TabIndex = 178;
             this.comboBox2.Text = "USRP";
             // 
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.Location = new System.Drawing.Point(677, 3);
+            this.button1.Location = new System.Drawing.Point(905, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
             this.tableLayoutPanel1.SetRowSpan(this.button1, 2);
-            this.button1.Size = new System.Drawing.Size(115, 57);
+            this.button1.Size = new System.Drawing.Size(151, 71);
             this.button1.TabIndex = 177;
             this.button1.Text = "查询";
             this.button1.UseVisualStyleBackColor = true;
@@ -184,9 +193,10 @@
             this.IP_label.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.IP_label.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.IP_label.ForeColor = System.Drawing.Color.Black;
-            this.IP_label.Location = new System.Drawing.Point(122, 17);
+            this.IP_label.Location = new System.Drawing.Point(163, 21);
+            this.IP_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.IP_label.Name = "IP_label";
-            this.IP_label.Size = new System.Drawing.Size(153, 14);
+            this.IP_label.Size = new System.Drawing.Size(204, 18);
             this.IP_label.TabIndex = 176;
             this.IP_label.Text = "数据通道";
             // 
@@ -210,26 +220,29 @@
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(795, 63);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1060, 79);
             this.tableLayoutPanel1.TabIndex = 190;
             // 
             // QueryForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(795, 560);
+            this.ClientSize = new System.Drawing.Size(1060, 700);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.listView1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "QueryForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "QueryForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.QueryForm_FormClosed);
             this.Load += new System.EventHandler(this.QueryForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
