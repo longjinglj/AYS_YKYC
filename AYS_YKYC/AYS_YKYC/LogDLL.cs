@@ -65,7 +65,6 @@ namespace AYS_YKYC
             richTextBox1.AppendText(text);
             richTextBox1.AppendText("\n");
 
-
             string LogPath = path;
             if (!Directory.Exists(LogPath))
                 Directory.CreateDirectory(LogPath);

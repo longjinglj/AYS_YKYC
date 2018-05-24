@@ -128,7 +128,6 @@ F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.SettingForm.resources
 F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.TelecmdProduce.resources
 F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.csproj.GenerateResource.cache
 F:\805\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.csproj.CoreCompileInputs.cache
-E:\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.csprojResolveAssemblyReference.cache
 E:\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.csproj.ResolveComReference.cache
 E:\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.APIDForm.resources
 E:\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.ChartForm.resources
@@ -175,3 +174,4 @@ E:\AYS_YKYC\AYS_YKYC\AYS_YKYC\bin\Debug\tr\ZedGraph.resources.dll
 E:\AYS_YKYC\AYS_YKYC\AYS_YKYC\bin\Debug\zh-cn\ZedGraph.resources.dll
 E:\AYS_YKYC\AYS_YKYC\AYS_YKYC\bin\Debug\zh-tw\ZedGraph.resources.dll
 E:\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.csproj.CopyComplete
+E:\AYS_YKYC\AYS_YKYC\AYS_YKYC\obj\Debug\AYS_YKYC.csprojResolveAssemblyReference.cache

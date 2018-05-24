@@ -741,5 +741,28 @@ namespace AYS_YKYC
 
 
         }
+
+        private void z1_MouseMove(object sender, MouseEventArgs e)
+        {
+            using (Graphics gc = z1.CreateGraphics())
+            using (Pen pen = new Pen(Color.Gray))
+            {
+                pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                RectangleF rect = z1.GraphPane.Chart.Rect;
+                if(rect.Contains(e.Location))
+                {
+                    z1.Refresh();
+                    gc.DrawLine(pen, e.X, rect.Top, e.X, rect.Bottom);
+                    gc.DrawLine(pen, rect.Left, e.Y, rect.Right, e.Y );
+
+                    PointF mousePt = new PointF(e.X, e.Y);
+
+                    double x, y;
+                    z1.GraphPane.ReverseTransform(mousePt,out x,out y);
+                    DateTime dt = DateTime.FromOADate(x);
+                    toolTip1.Show(dt.ToString("yyyy-MM-dd HH:mm:ss")+","+y.ToString("f2"), this, e.X, e.Y);
+                }
+            }
+        }
     }
 }

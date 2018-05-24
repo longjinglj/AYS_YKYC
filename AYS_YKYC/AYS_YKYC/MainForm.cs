@@ -93,10 +93,6 @@ namespace AYS_YKYC
                 Data.DealCRTa.init();
 
                 toolStripStatusLabel2.Text = "存储路径" + Path;
-                mySaveFileThread = new SaveFile();
-                mySaveFileThread.FileInit();
-                mySaveFileThread.FileSaveStart();
-
                 Data.AllThreadTag = true;
 
                
@@ -162,22 +158,23 @@ namespace AYS_YKYC
                 Trace.WriteLine(ex.Message);
             }
           
-            autostart(sender,e);
+            启动toolStripMenuItem_Click(sender,e);
+            一键启动APIDToolStripMenuItem.PerformClick();
             Trace.WriteLine("完成初始化！");
         }
 
 
-        private void autostart(object sender, EventArgs e)
-        {
-            btn_ZK1_Open_Click(sender, e);
-            btn_ZK1_YC_Open_Click(sender, e);
-            buttonCRT_Click(btn_CRTa_Open, e);
-            //     buttonCRT_Click(btn_CRTb_Open, e);
+        //private void autostart(object sender, EventArgs e)
+        //{
+        //    btn_ZK1_Open_Click(sender, e);
+        //    btn_ZK1_YC_Open_Click(sender, e);
+        //    buttonCRT_Click(btn_CRTa_Open, e);
+        //    //     buttonCRT_Click(btn_CRTb_Open, e);
 
-            启动toolStripMenuItem.Text = "停止";
+        //    启动toolStripMenuItem.Text = "停止";
 
-            一键启动APIDToolStripMenuItem.PerformClick();
-        }
+        //    一键启动APIDToolStripMenuItem.PerformClick();
+        //}
         private void initTable()
         {
             #region 初始化DataTable
@@ -704,10 +701,14 @@ namespace AYS_YKYC
                 启动toolStripMenuItem.Text = "停止";
 
 
-                mySaveFileThread.FileClose();
                 mySaveFileThread = new SaveFile();
                 mySaveFileThread.FileInit();
                 mySaveFileThread.FileSaveStart();
+
+                //mySaveFileThread.FileClose();
+                //mySaveFileThread = new SaveFile();
+                //mySaveFileThread.FileInit();
+                //mySaveFileThread.FileSaveStart();
 
             }
             else
@@ -717,6 +718,7 @@ namespace AYS_YKYC
                 buttonCRT_Click(btn_CRTa_Close, e);
                 //   buttonCRT_Click(btn_CRTb_Close, e);
 
+                mySaveFileThread.FileClose();
 
                 启动toolStripMenuItem.Text = "启动";
             }

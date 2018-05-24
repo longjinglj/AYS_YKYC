@@ -43,14 +43,15 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.z1 = new ZedGraph.ZedGraphControl();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.btn_LogCtr = new System.Windows.Forms.Button();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -60,18 +61,17 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // treeView1
             // 
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(4);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(196, 908);
+            this.treeView1.Size = new System.Drawing.Size(147, 726);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
@@ -81,11 +81,10 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(443, 908);
+            this.dataGridView1.Size = new System.Drawing.Size(332, 726);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
             // 
@@ -93,48 +92,43 @@
             // 
             this.dateTimePicker1.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(92, 31);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
+            this.dateTimePicker1.Location = new System.Drawing.Point(69, 25);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(205, 25);
+            this.dateTimePicker1.Size = new System.Drawing.Size(155, 21);
             this.dateTimePicker1.TabIndex = 3;
             // 
             // dateTimePicker2
             // 
             this.dateTimePicker2.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(92, 67);
-            this.dateTimePicker2.Margin = new System.Windows.Forms.Padding(4);
+            this.dateTimePicker2.Location = new System.Drawing.Point(69, 54);
             this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(205, 25);
+            this.dateTimePicker2.Size = new System.Drawing.Size(155, 21);
             this.dateTimePicker2.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 34);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(10, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 15);
+            this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 4;
             this.label1.Text = "开始时间";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 74);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(10, 59);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 15);
+            this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 4;
             this.label2.Text = "停止时间";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(348, 64);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Location = new System.Drawing.Point(261, 51);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(237, 29);
+            this.button1.Size = new System.Drawing.Size(178, 23);
             this.button1.TabIndex = 5;
             this.button1.Text = "开启实时更新";
             this.button1.UseVisualStyleBackColor = true;
@@ -143,28 +137,25 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(424, 27);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox1.Location = new System.Drawing.Point(318, 22);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(160, 23);
+            this.comboBox1.Size = new System.Drawing.Size(121, 20);
             this.comboBox1.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(345, 31);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(259, 25);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 15);
+            this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 4;
             this.label3.Text = "显示项目";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(593, 27);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Location = new System.Drawing.Point(445, 22);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(128, 29);
+            this.button2.Size = new System.Drawing.Size(96, 23);
             this.button2.TabIndex = 5;
             this.button2.Text = "从图中移除";
             this.button2.UseVisualStyleBackColor = true;
@@ -172,10 +163,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(593, 64);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
+            this.button3.Location = new System.Drawing.Point(445, 51);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(128, 29);
+            this.button3.Size = new System.Drawing.Size(96, 23);
             this.button3.TabIndex = 7;
             this.button3.Text = "清空图表";
             this.button3.UseVisualStyleBackColor = true;
@@ -191,7 +181,6 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -201,16 +190,14 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1440, 908);
-            this.splitContainer1.SplitterDistance = 196;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(1080, 726);
+            this.splitContainer1.SplitterDistance = 147;
             this.splitContainer1.TabIndex = 8;
             // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -221,17 +208,26 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer2.Size = new System.Drawing.Size(1239, 908);
-            this.splitContainer2.SplitterDistance = 791;
-            this.splitContainer2.SplitterWidth = 5;
+            this.splitContainer2.Size = new System.Drawing.Size(929, 726);
+            this.splitContainer2.SplitterDistance = 593;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.z1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 131);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(593, 595);
+            this.panel2.TabIndex = 25;
             // 
             // z1
             // 
             this.z1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.z1.IsShowPointValues = true;
             this.z1.Location = new System.Drawing.Point(0, 0);
-            this.z1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.z1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.z1.Name = "z1";
             this.z1.ScrollGrace = 0D;
             this.z1.ScrollMaxX = 0D;
@@ -240,46 +236,10 @@
             this.z1.ScrollMinX = 0D;
             this.z1.ScrollMinY = 0D;
             this.z1.ScrollMinY2 = 0D;
-            this.z1.Size = new System.Drawing.Size(791, 744);
+            this.z1.Size = new System.Drawing.Size(593, 595);
             this.z1.TabIndex = 23;
             this.z1.UseExtendedPrintDialog = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(349, 105);
-            this.button5.Margin = new System.Windows.Forms.Padding(4);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(160, 29);
-            this.button5.TabIndex = 22;
-            this.button5.Text = "载入配置";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(92, 105);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(160, 29);
-            this.button4.TabIndex = 21;
-            this.button4.Text = "保存配置";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // btn_LogCtr
-            // 
-            this.btn_LogCtr.Location = new System.Drawing.Point(551, 105);
-            this.btn_LogCtr.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_LogCtr.Name = "btn_LogCtr";
-            this.btn_LogCtr.Size = new System.Drawing.Size(148, 29);
-            this.btn_LogCtr.TabIndex = 20;
-            this.btn_LogCtr.Text = "侧边栏隐藏>>>";
-            this.btn_LogCtr.UseVisualStyleBackColor = true;
-            this.btn_LogCtr.Click += new System.EventHandler(this.btn_LogCtr_Click);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.z1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.z1_MouseMove);
             // 
             // panel1
             // 
@@ -297,26 +257,51 @@
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(791, 164);
+            this.panel1.Size = new System.Drawing.Size(593, 131);
             this.panel1.TabIndex = 24;
             // 
-            // panel2
+            // button5
             // 
-            this.panel2.Controls.Add(this.z1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 164);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(791, 744);
-            this.panel2.TabIndex = 25;
+            this.button5.Location = new System.Drawing.Point(262, 84);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(120, 23);
+            this.button5.TabIndex = 22;
+            this.button5.Text = "载入配置";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(69, 84);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(120, 23);
+            this.button4.TabIndex = 21;
+            this.button4.Text = "保存配置";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // btn_LogCtr
+            // 
+            this.btn_LogCtr.Location = new System.Drawing.Point(413, 84);
+            this.btn_LogCtr.Name = "btn_LogCtr";
+            this.btn_LogCtr.Size = new System.Drawing.Size(111, 23);
+            this.btn_LogCtr.TabIndex = 20;
+            this.btn_LogCtr.Text = "侧边栏隐藏>>>";
+            this.btn_LogCtr.UseVisualStyleBackColor = true;
+            this.btn_LogCtr.Click += new System.EventHandler(this.btn_LogCtr_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // ChartForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1440, 908);
+            this.ClientSize = new System.Drawing.Size(1080, 726);
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ChartForm";
             this.Text = "ChartForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChartForm_FormClosing);
@@ -330,10 +315,10 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -362,5 +347,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

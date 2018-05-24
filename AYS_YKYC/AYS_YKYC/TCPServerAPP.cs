@@ -424,7 +424,7 @@ namespace AYS_YKYC
                                 Data.EpduBuf_List.Clear();
                             }
                         }
-
+                        //////alter by cz
                         lock (Data.EpduBuf_List)
                         {
                             if (Data.EpduBuf_List.Count >= epdu_len + 7)
